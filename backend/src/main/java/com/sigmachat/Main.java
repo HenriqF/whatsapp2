@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 public class Main {
     public static void main(String[] args) {
         System.out.println("=========================");
-        System.out.println("sigmachat");
+        System.out.println("whatsapp 2");
         System.out.println("=========================");
 
 

@@ -5,12 +5,30 @@ import java.net.InetSocketAddress;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+
+import java.util.concurrent.ThreadLocalRandom;
 public class ChatServer extends WebSocketServer {
 
-    List<WebSocket> conexoes = new CopyOnWriteArrayList<WebSocket>();
+    List<WebSocket> conexoes = new CopyOnWriteArrayList<>();
+    Map<WebSocket, String> nomes = new ConcurrentHashMap<>();
+
+    private String novo_nome(){
+        List<String> primeiro = List.of("Heitor", "espili", "whats");
+        List<String> segundo = List.of("M3ga", "gueta", "app2");
+
+        int ip = ThreadLocalRandom.current().nextInt(0, primeiro.size());
+        int is = ThreadLocalRandom.current().nextInt(0, primeiro.size());
+
+        return primeiro.get(ip) + " " + segundo.get(is);
+    }
+
 
     public ChatServer(InetSocketAddress adress){
         super(adress);
@@ -20,6 +38,7 @@ public class ChatServer extends WebSocketServer {
     public void onOpen(WebSocket ws, ClientHandshake hs){
         System.out.println(String.format("Conex: %s", ws.toString()));
         conexoes.add(ws);
+        nomes.put(ws, novo_nome());
     }
 
     @Override
@@ -44,9 +63,11 @@ public class ChatServer extends WebSocketServer {
     public void onMessage(WebSocket ws, String msg){
         System.out.println(String.format("Mensagem: %s", msg));
 
-        String resposta = ws.toString() + " : " + msg;
+        String resposta = nomes.get(ws) + " : " + msg;
+
 
         for (WebSocket usuario : conexoes) {
+
             usuario.send(resposta);
         }
     }
