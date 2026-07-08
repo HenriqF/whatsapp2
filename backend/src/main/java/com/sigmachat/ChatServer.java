@@ -13,32 +13,23 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-import java.util.concurrent.ThreadLocalRandom;
 public class ChatServer extends WebSocketServer {
 
     List<WebSocket> conexoes = new CopyOnWriteArrayList<>();
     Map<WebSocket, String> nomes = new ConcurrentHashMap<>();
 
-    private String novo_nome(){
-        List<String> primeiro = List.of("Heitor", "espili", "whats");
-        List<String> segundo = List.of("M3ga", "gueta", "app2");
+    Interface inter;
 
-        int ip = ThreadLocalRandom.current().nextInt(0, primeiro.size());
-        int is = ThreadLocalRandom.current().nextInt(0, primeiro.size());
-
-        return primeiro.get(ip) + " " + segundo.get(is);
-    }
-
-
-    public ChatServer(InetSocketAddress adress){
+    public ChatServer(InetSocketAddress adress, Interface i){
         super(adress);
+        this.inter = i;
     }
 
     @Override
     public void onOpen(WebSocket ws, ClientHandshake hs){
         System.out.println(String.format("Conex: %s", ws.toString()));
         conexoes.add(ws);
-        nomes.put(ws, novo_nome());
+        nomes.put(ws, "anonimo");
     }
 
     @Override
@@ -51,7 +42,6 @@ public class ChatServer extends WebSocketServer {
 
     @Override
     public void onStart(){
-        System.out.println("iniciou");
     }
 
     @Override
