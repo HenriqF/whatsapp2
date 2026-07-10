@@ -6,6 +6,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import java.util.Set;
+
+
 public class Interface {
     private static String novo_nome(){
         List<String> primeiro = List.of("Heitor", "espili", "whats");
@@ -21,6 +24,13 @@ public class Interface {
     Map<Integer, String> acessos = new ConcurrentHashMap<>(); //id -> nome
     AtomicInteger id_counter = new AtomicInteger(0);
 
+    
+
+    Map<Integer, String> subscriptiones = new ConcurrentHashMap<>(); // membro -> chat
+    Map<String, Set<Integer>> chats = new ConcurrentHashMap<>(); //nome -> membros
+
+
+    //usuarios
 
     public int novo_acesso(String nome){
         int nid = id_counter.addAndGet(1);
@@ -35,13 +45,50 @@ public class Interface {
         return novo_acesso(nome);
     }
 
+    public String get_info_por_id(Integer id){
+        if (id == null) return "coagulo não existe";
+
+        return acessos.getOrDefault(id, "coagulo não existe") + 
+               "\nChat : " + subscriptiones.getOrDefault(id, "sem chat");
+    }
 
     public String get_nome_por_id(Integer id){
         if (id == null) return "coagulo não existe";
 
-        return acessos.getOrDefault(id, "coagulo não existe");
+        return acessos.getOrDefault(id, null); 
     }
 
+    //cats 
+
+    public boolean novo_chat(String nome){
+        chats.computeIfAbsent(nome, chat -> ConcurrentHashMap.newKeySet());
+
+        return true;
+    }
+
+    public boolean trocar_chat(String nome_chat, Integer uid){
+        if (uid > id_counter.intValue()) return false;
+        if (!chats.containsKey(nome_chat)) return false; //delecao hats consertar ts 
+
+        String old_chat = subscriptiones.put(uid, nome_chat);
+        if (old_chat != null){
+            chats.computeIfPresent(old_chat, (chat, membros) -> {
+                membros.remove(uid);
+                return membros;
+            });
+        }
+
+        chats.computeIfPresent(nome_chat, (chat, membros) -> {
+            membros.add(uid);
+            return membros;
+        });
+
+        return true;
+    }
+
+    public String[] get_escutantes(Integer uid){
+        return null;
+    }
 
     public Interface(){
 

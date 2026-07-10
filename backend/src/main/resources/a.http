@@ -1,17 +1,16 @@
-GET http://localhost:3000/online
+
+GET http://localhost:3000/acesso/porraloca
+###
+GET http://localhost:3000/chats/novo/porra
 
 
 ###
 
-GET http://localhost:3000/online/aaa
+GET http://localhost:3000/quem/1
 
 
 
-###
-
-GET http://localhost:3000/acesso/
 
 
 ###
-
-GET http://localhost:3000/quem/8
+GET http://localhost:3000/chats/entrar/porra/1
