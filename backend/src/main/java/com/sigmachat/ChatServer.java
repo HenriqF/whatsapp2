@@ -9,6 +9,7 @@ import org.java_websocket.server.WebSocketServer;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.Set;
 
 
 public class ChatServer extends WebSocketServer {
@@ -16,7 +17,6 @@ public class ChatServer extends WebSocketServer {
     Interface inter;
 
     Map<WebSocket, Integer> conexoes = new ConcurrentHashMap<>();
-
 
     public ChatServer(InetSocketAddress adress, Interface i){
         super(adress);
@@ -58,14 +58,19 @@ public class ChatServer extends WebSocketServer {
 
     @Override
     public void onMessage(WebSocket ws, String msg){
+        String nome = inter.get_nome_por_id(conexoes.get(ws));
+        String resposta = nome +": " + msg;
+
         System.out.println(String.format("Mensagem: %s", msg));
 
-        String[] ouvintes = inter.get_escutantes(conexoes.get(ws));
-        //String resposta = conexoes.get(ws) + " : " + msg;
+        Set<Integer> ouvintes = inter.get_ouvintes(conexoes.get(ws));
+        if (ouvintes == null) return;
 
+        conexoes.forEach((socket, user) -> {
+            if (ouvintes.contains(user)) socket.send(resposta);
+        });
 
-        
-
+        System.out.println(String.format("Mensagem: %s", msg));
     }
 
 

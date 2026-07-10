@@ -1,0 +1,29 @@
+.chatsarea {
+    width: 250px;
+    height: 50%;
+    overflow-y: auto;
+    border-radius: 0.5em;
+    padding: 10px;
+}
+
+.chatslist {
+    padding: 0;
+    margin: 0;
+    flex-direction: column;
+    list-style-type: none;
+}
+
+.chatslist button {
+    width: 100%;
+    padding: 0.67em;
+    font-size: 1em;
+    text-align: left;
+    background-color: white;
+    border: 1px solid #cccccc;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.chatslist button:hover {
+    background-color: #f0f0f0;
+}

@@ -1,0 +1,27 @@
+textarea, button{
+    box-sizing: border-box;
+    margin: 0;
+    border: 1% solid #cccccc;
+    resize: none;
+}
+
+
+.chatoutput{
+    width: 400px;
+    height: 40vh;
+}
+
+.chatinput{
+    width: 329px;
+}
+
+.nomeinput{
+    width: 329px;
+}
+
+
+.chatsend{
+    vertical-align: top;
+    width: 67px;
+    height: 2.7em;
+}

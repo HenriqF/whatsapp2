@@ -61,6 +61,14 @@ public class Interface {
     //cats 
 
     public boolean novo_chat(String nome){
+        if (nome.length() >= 30) return false;
+
+        for (char c : nome.toCharArray()){
+            if (!(Character.isLetterOrDigit(c) && c < 128) && c != ' ') {
+                return false;
+            }
+        }
+
         chats.computeIfAbsent(nome, chat -> ConcurrentHashMap.newKeySet());
 
         return true;
@@ -86,8 +94,19 @@ public class Interface {
         return true;
     }
 
-    public String[] get_escutantes(Integer uid){
-        return null;
+    public Set<Integer> get_ouvintes(Integer uid){
+        if (uid > id_counter.intValue()) return null;
+
+        String current_chat = subscriptiones.get(uid);
+        if(current_chat == null) return null;
+
+        Set<Integer> ouvintes = chats.get(current_chat);
+
+        return ouvintes;
+    }
+
+    public String[] get_chats(){
+        return chats.keySet().toArray(String[]::new);
     }
 
     public Interface(){

@@ -20,6 +20,9 @@ public class Main {
 
         try{
             Interface i = new Interface();
+            i.novo_chat("main");
+            i.novo_chat("whatsapp2");
+            i.novo_acesso("heitormega");
 
             HttpServer rest = HttpServer.create(new InetSocketAddress("0.0.0.0", 3000), 0);
 
@@ -100,6 +103,21 @@ public class Main {
                             }
                             break;
 
+                        case "list":
+                            String[] chats = i.get_chats();
+                            
+                            resposta = "[";
+
+                            for (int k = 0 ; k < chats.length; k++){
+                                resposta += '"' + chats[k] + '"';
+                                if (k != chats.length-1) resposta += ',';
+                            }
+
+                            resposta += "]";
+
+                            c.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+                            break;
+
                         default:
                             resposta = "nem eu sei";
                             break;
@@ -107,8 +125,8 @@ public class Main {
                 }
 
 
-
-                c.sendResponseHeaders(200,resposta.length());
+                c.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+                c.sendResponseHeaders(200, resposta.length());
                 try(OutputStream os = c.getResponseBody()){
                     os.write(resposta.getBytes());
                 }

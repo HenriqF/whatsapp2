@@ -4,12 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>shat</title>
-    <link rel="stylesheet" href="s.css">
+    <link rel="stylesheet" href="stiloz/global.css">
+    <link rel="stylesheet" href="stiloz/type.css">
+    <link rel="stylesheet" href="stiloz/button.css">
+
 </head>
 <body>
-    <textarea name="ta" id="output" disabled="true"></textarea><br>
-    <textarea name="tb" id="input"></textarea>
-    <button id="send">ENVIAR</button>
+    <div class="container">
+        <div class="chatarea">
+            <textarea name="ta" id="output" class="chatoutput"disabled="true"></textarea><br>
+            <textarea name="tb" id="input" class="chatinput"></textarea>
+            <button id="send" class="chatsend">ENVIAR</button>
+        </div>
+
+
+        <div class="chatarea">
+
+        <p>Clique para entrar no chat:</p>
+        <div class="chatsarea">
+
+
+            <ul class="chatslist" id ="chatslist">
+
+            </ul>
+
+
+    </div>
 
     <script src="script.js"></script>
 </body>
