@@ -35,6 +35,7 @@ public class Main {
                     ans = "sim" + pargs[2];
                 }
 
+                c.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
                 c.sendResponseHeaders(200, ans.length());
                 try (OutputStream os = c.getResponseBody()) {
                     os.write(ans.getBytes());
@@ -53,6 +54,7 @@ public class Main {
                     acesso = String.valueOf(i.novo_acesso());
                 }
 
+                c.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
                 c.sendResponseHeaders(200, acesso.length());
                 try (OutputStream os = c.getResponseBody()){
                     os.write(acesso.getBytes());
@@ -68,6 +70,7 @@ public class Main {
                     resposta = i.get_info_por_id(Integer.valueOf(pargs[2]));
                 }
 
+                c.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
                 c.sendResponseHeaders(200, resposta.length());
                 try (OutputStream os = c.getResponseBody()) {
                     os.write(resposta.getBytes());
@@ -75,7 +78,6 @@ public class Main {
 
             });
 
-            
             rest.createContext("/chats", c -> {
                 String[] pargs = get_pargs(c);
 
@@ -135,7 +137,6 @@ public class Main {
 
             rest.start();
             System.out.println("rest iniciado");
-
 
             ChatServer s = new ChatServer(new InetSocketAddress("0.0.0.0", 2000), i);
             s.setReuseAddr(true);

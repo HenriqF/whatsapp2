@@ -20,6 +20,14 @@ public class Interface {
         return primeiro.get(ip) + " " + segundo.get(is);
     }
 
+    private static boolean nome_valido(String nome){ 
+        for (char c : nome.toCharArray()){
+            if (!(Character.isLetterOrDigit(c) && c < 128) && c != ' ') {
+                return false;
+            }
+        }
+        return true;
+    }
 
     Map<Integer, String> acessos = new ConcurrentHashMap<>(); //id -> nome
     AtomicInteger id_counter = new AtomicInteger(0);
@@ -63,11 +71,7 @@ public class Interface {
     public boolean novo_chat(String nome){
         if (nome.length() >= 30) return false;
 
-        for (char c : nome.toCharArray()){
-            if (!(Character.isLetterOrDigit(c) && c < 128) && c != ' ') {
-                return false;
-            }
-        }
+        if (!nome_valido(nome)) return false;
 
         chats.computeIfAbsent(nome, chat -> ConcurrentHashMap.newKeySet());
 

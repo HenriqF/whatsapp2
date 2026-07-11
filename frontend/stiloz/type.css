@@ -7,20 +7,25 @@ textarea, button{
 
 
 .chatoutput{
-    width: 400px;
+    width: 100%;
     height: 40vh;
 }
 
 .chatinput{
-    width: 329px;
+    width: 85%;
 }
 
 .nomeinput{
-    width: 329px;
+    width: 30%;
 }
 
-
 .chatsend{
+    vertical-align: top;
+    width: 67px;
+    height: 2.7em;
+}
+
+.namesend{
     vertical-align: top;
     width: 67px;
     height: 2.7em;

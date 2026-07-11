@@ -4,12 +4,28 @@ html, body, button, textarea{
 
 
 .container{
-    display: flex;
-    gap: 5em;
+    display: none;
+    justify-content: space-between; 
+    gap: 7vw;
+    width: 80vw;
+}
+
+.header{
+    width: 79.5vw;
+
+    background-color: rgb(235, 235, 235);
+    padding: 0.3em;
+    border-radius: 0.5em;
+
+    display: block;
 }
 
 .chatarea{
+    width: 80vw;
+    
     background-color: rgb(235, 235, 235);
     padding: 0.3em;
     border-radius: 0.5em;
 }
+
+

@@ -1,3 +1,7 @@
+const container = document.getElementById("container");
+const header = document.getElementById("header");
+
+
 const input = document.getElementById("input");
 const output = document.getElementById("output");
 const botao = document.getElementById("send");
@@ -6,7 +10,11 @@ const botao = document.getElementById("send");
 const chatslist = document.getElementById("chatslist");
 
 
-const uid = 1;
+const nameinput = document.getElementById("nomeinput");
+const namesendbtn = document.getElementById("namesendbtn");
+
+
+var uid = 1;
 
 function open_chat(where){
     const sock = new WebSocket(where);
@@ -26,9 +34,6 @@ function open_chat(where){
         sock.send(input.value);
     });
 }
-open_chat(`ws://localhost:2000/${uid}`);
-
-
 
 
 async function fetch_chats(){
@@ -50,6 +55,8 @@ async function fetch_chats(){
             btn.addEventListener("click", async f => {
                 await fetch(`http://localhost:3000/chats/entrar/${e}/${uid}`);
                 output.value = `Chat: ${e}`;
+
+                botao.disabled = false;
             });
             
             nb.appendChild(btn);
@@ -62,3 +69,21 @@ async function fetch_chats(){
 }
 fetch_chats();
 setInterval(fetch_chats, 3000);
+
+
+
+namesendbtn.addEventListener("click", async e => {
+    if ( nameinput.value.length <= 0 ) return;
+
+    const resp = await fetch(`http://localhost:3000/acesso/${nameinput.value}`);
+
+    if (!resp.ok) return;
+
+    const dados = await resp.json();
+    
+    uid = dados;
+    open_chat(`ws://localhost:2000/${uid}`);
+
+    container.style.display = "flex";
+    header.style.display = "none";
+});

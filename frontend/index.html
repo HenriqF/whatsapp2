@@ -10,24 +10,32 @@
 
 </head>
 <body>
-    <div class="container">
+    <div>
+        <div class="header" id="header">
+            <textarea name="td" id="nomeinput" class="nomeinput" placeholder="SEU NOME"></textarea>
+            <button id="namesendbtn" class="namesend">Entrar</button>
+        </div>
+        <br>
+        <br>
+    </div>
+
+    <div class="container" id="container">
         <div class="chatarea">
             <textarea name="ta" id="output" class="chatoutput"disabled="true"></textarea><br>
             <textarea name="tb" id="input" class="chatinput"></textarea>
-            <button id="send" class="chatsend">ENVIAR</button>
+            <button id="send" class="chatsend" disabled="true">ENVIAR</button>
         </div>
 
-
         <div class="chatarea">
+            <p>Clique para entrar no chat:</p>
 
-        <p>Clique para entrar no chat:</p>
-        <div class="chatsarea">
+            <div class="chatsarea">
+                <ul class="chatslist" id ="chatslist">
 
+                </ul>
+            </div>
 
-            <ul class="chatslist" id ="chatslist">
-
-            </ul>
-
+        </div>
 
     </div>
 
